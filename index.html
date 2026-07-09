@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신혼부부 주택정책 맞춤진단 2026 | 청약·임대·대출 한눈에</title>
+<meta name="description" content="9개 질문에 답하면 신혼부부·신생아 가구가 신청 가능한 수도권 주택정책(뉴:홈 특공, 미리내집, 천원주택, 신생아 특례대출 등 16개)을 자동 판정하고 신청 링크까지 연결해주는 무료 진단 페이지">
+<meta property="og:title" content="신혼부부 주택정책 맞춤진단 2026">
+<meta property="og:description" content="클릭 몇 번으로 우리 부부가 신청 가능한 청약·임대·대출 정책을 확인하세요. 소득·자산 기준 자동 판정 + 공고 바로가기.">
+<meta property="og:type" content="website">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif; background:#f4f6f9; color:#222; padding:24px 16px; }
+  .wrap { max-width:900px; margin:0 auto; }
+  h1 { font-size:22px; color:#1F4E79; margin-bottom:4px; }
+  .sub { color:#777; font-size:13px; margin-bottom:20px; }
+  .card { background:#fff; border-radius:12px; padding:20px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  .q { margin-bottom:14px; }
+  .q-label { font-weight:bold; font-size:14px; margin-bottom:6px; display:block; }
+  .q-why { font-size:12px; color:#999; margin-top:3px; }
+  .opts { display:flex; flex-wrap:wrap; gap:6px; }
+  .opts button { border:1.5px solid #cdd6e0; background:#fff; border-radius:20px; padding:7px 14px; font-size:13px; cursor:pointer; transition:.15s; }
+  .opts button:hover { border-color:#1F4E79; }
+  .opts button.sel { background:#1F4E79; color:#fff; border-color:#1F4E79; font-weight:bold; }
+  h2 { font-size:17px; color:#1F4E79; margin:22px 0 10px; }
+  .summary { font-size:13px; background:#eaf1f8; border-radius:8px; padding:10px 14px; margin-bottom:12px; }
+  .pol { background:#fff; border-radius:10px; padding:14px 16px; margin-bottom:10px; box-shadow:0 1px 3px rgba(0,0,0,.06); border-left:5px solid #ccc; }
+  .pol.ok { border-left-color:#2e9e5b; }
+  .pol.maybe { border-left-color:#e8a33d; }
+  .pol.no { border-left-color:#d9534f; opacity:.65; }
+  .pol.skip { border-left-color:#bbb; opacity:.45; }
+  .pol-head { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; }
+  .pol-name { font-weight:bold; font-size:14.5px; }
+  .cat { font-size:11px; background:#eef2f7; color:#556; border-radius:4px; padding:2px 7px; margin-right:6px; }
+  .verdict { font-size:13.5px; font-weight:bold; }
+  .ok .verdict { color:#2e9e5b; } .maybe .verdict { color:#c07f16; } .no .verdict { color:#d9534f; }
+  .basis { font-size:12px; color:#888; margin-top:5px; }
+  .links { margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; }
+  .links a { font-size:12.5px; text-decoration:none; color:#1F4E79; border:1px solid #1F4E79; border-radius:6px; padding:4px 10px; }
+  .links a:hover { background:#1F4E79; color:#fff; }
+  .links a.notice { border-color:#e8a33d; color:#b57a10; }
+  .links a.notice:hover { background:#e8a33d; color:#fff; }
+  .foot { font-size:12px; color:#999; margin-top:20px; line-height:1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🏠 신혼부부 주택정책 맞춤진단</h1>
+  <div class="sub">2026-07 기준 · 답을 클릭하면 아래 판정이 실시간으로 바뀝니다 · 최종 기준은 반드시 각 공고문 확인</div>
+
+  <div class="card" id="quiz"></div>
+
+  <h2>진단 결과 <span id="count" style="font-size:13px;color:#777;font-weight:normal"></span></h2>
+  <div class="summary" id="summary"></div>
+  <div id="results"></div>
+
+  <div class="foot">
+    ⚠️ 소득 % 기준은 '전년도 도시근로자 월평균소득' 대비 비율로 매년 갱신됩니다. 자산은 <b>부동산(공시가)+금융+차량+기타자산 − 부채</b>로 계산하세요.<br>
+    출처: 뉴:홈 · 마이홈포털 · LH청약플러스 · SH공사 · GH · 인천주거포털 · 서울주거포털 · 기금e든든 · 경기주거복지포털<br>
+    ※ 본 페이지는 정부·공공기관의 공식 서비스가 아닌 개인이 공개 자료를 정리한 참고용 도구입니다. 기준은 2026년 7월 조사 시점 기준이며, 실제 신청 자격은 반드시 해당 기관의 최신 모집공고문으로 확인하세요.
+  </div>
+</div>
+
+<script>
+const QS = [
+ { id:'region', label:'Q1. 희망 지역은?', why:'지역 한정 정책(미리내집·천원주택·GH 등) 판정에 사용',
+   opts:['서울','경기','인천','수도권 전체'], def:'수도권 전체' },
+ { id:'type', label:'Q2. 원하는 정책 유형은?', why:'선택한 유형만 판정합니다',
+   opts:['분양·청약','임대주택','대출·금융','지원금·포털','전부'], def:'전부' },
+ { id:'nohouse', label:'Q3. 무주택 세대인가요?', why:'거의 모든 정책의 필수 요건',
+   opts:['예','아니오'], def:'예' },
+ { id:'marry', label:'Q4. 혼인신고 7년 이내인가요?', why:'신혼부부 자격 기준(예비부부도 대부분 인정)',
+   opts:['예','예비부부','아니오'], def:'예' },
+ { id:'baby', label:'Q5. 2023년 이후 출산했거나 2년 내 출산 예정인가요?', why:'신생아 특공·특례대출(최대 혜택) 요건',
+   opts:['예','아니오'], def:'예' },
+ { id:'income', label:'Q6. 부부합산 연소득은?', why:'소득구간별로 신청 가능 정책이 갈립니다',
+   opts:['7천만원 이하','7천만~1억','1억~1.3억','1.3억 초과'], def:'7천만~1억' },
+ { id:'dual', label:'Q7. 맞벌이인가요?', why:'맞벌이는 소득 상한 완화(140~200%, 대출 2억)',
+   opts:['예','아니오'], def:'예' },
+ { id:'asset', label:'Q8. 부부합산 자산은? (부동산 공시가+금융+차량+기타 − 대출 등 부채)', why:'임대 3.45억 / 공공분양 3.62억 / 신생아대출 순자산 5.11억이 상한',
+   opts:['3.4억원 이하','3.4억~3.6억','3.6억~5.1억','5.1억 초과'], def:'3.4억원 이하' },
+ { id:'car', label:'Q9. 자동차 가액은?', why:'공공임대·분양은 차량가액 약 4,542만~4,563만원 제한',
+   opts:['4,500만원 이하(무차량 포함)','4,500만원 초과'], def:'4,500만원 이하(무차량 포함)' },
+];
+let A = {}; QS.forEach(q => A[q.id] = q.def);
+
+// 공고 리스트 페이지(새 공고 확인용)
+const NOTICE = {
+  LH_SALE:'https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027',
+  LH_RENT:'https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026',
+  SH:'https://www.i-sh.co.kr/app/lay2/S48T6792C6812/contents.do',
+  GH:'https://apply.gh.or.kr/sb/sr/sr7150/selectPbancRentHouseList.do',
+  IC:'https://www.incheon.go.kr/housing/hou060101',
+  CHY:'https://www.applyhome.co.kr',
+  NH:'https://xn--vg1bl39d.kr',
+};
+
+function inc() { return ['7천만원 이하','7천만~1억','1억~1.3억','1.3억 초과'].indexOf(A.income)+1; }
+function ast() { return ['3.4억원 이하','3.4억~3.6억','3.6억~5.1억','5.1억 초과'].indexOf(A.asset)+1; }
+const base = () => A.nohouse==='예' && (A.marry==='예'||A.marry==='예비부부');
+const carOK = () => A.car.indexOf('초과')===-1;
+const dual = () => A.dual==='예';
+const babyOK = () => A.baby==='예';
+const rentA = () => ast()===1 && carOK();
+const saleA = () => ast()<=2 && carOK();
+const reg = r => A.region===r || A.region==='수도권 전체';
+
+const NO='no', OK='ok', MB='maybe';
+const POL = [
+ {cat:'분양·청약', name:'뉴:홈 공공분양 신혼부부 특공', basis:'소득 130%(맞벌이 140%) / 총자산 3.62억·차량 4,563만 이하',
+  apply:NOTICE.NH, notice:NOTICE.LH_SALE,
+  judge(){ if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    if(!saleA()) return [NO,'❌ 자산 초과(총자산 3.62억·차량 4,563만)'];
+    if(inc()<=2) return [OK,'✅ 신청 가능'];
+    if(inc()===3&&dual()) return [MB,'⭕ 맞벌이 140% 경계, 공고 확인'];
+    return [NO,'❌ 소득 초과']; }},
+ {cat:'분양·청약', name:'공공분양 신생아 특별공급', basis:'2023.1.1 이후 출생아 / 자산기준 공공분양과 동일',
+  apply:NOTICE.LH_SALE, notice:NOTICE.LH_SALE,
+  judge(){ if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    if(!babyOK()) return [NO,'❌ 출산요건(2년 내) 필요'];
+    if(!saleA()) return [NO,'❌ 자산 초과(총자산 3.62억)'];
+    if(inc()<=2) return [OK,'✅ 신청 가능'];
+    if(inc()===3&&dual()) return [MB,'⭕ 맞벌이 경계, 공고 확인'];
+    return [NO,'❌ 소득 초과']; }},
+ {cat:'분양·청약', name:'민영주택 신혼부부 특공', basis:'소득 140%(맞벌이 160%), 초과 시 부동산 3.31억 이하 추첨제',
+  apply:NOTICE.CHY, notice:NOTICE.CHY,
+  judge(){ if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    if(inc()<=2) return [OK,'✅ 신청 가능'];
+    if(inc()===3) return [MB,'⭕ 맞벌이 160% 이내 확인'];
+    return [MB,'⭕ 추첨제 가능(부동산 3.31억 이하)']; }},
+ {cat:'임대주택', name:'서울 미리내집(장기전세Ⅱ)', basis:'서울 거주 / 출산 시 최장 20년+우선매수 / 연 4,000호', rg:'서울',
+  apply:NOTICE.SH, notice:NOTICE.SH,
+  judge(){ if(!reg('서울')) return ['skip','― 지역 다름'];
+    if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    if(!rentA()) return [NO,'❌ 자산·차량 기준 초과'];
+    if(inc()<=2) return [OK,'✅ 신청 가능'];
+    return [MB,'⭕ 공고별 소득기준 확인']; }},
+ {cat:'임대주택', name:'LH 행복주택(신혼부부)', basis:'소득 100%(맞벌이 120%) / 총자산 3.45억·차량 4,542만',
+  apply:NOTICE.LH_RENT, notice:NOTICE.LH_RENT,
+  judge(){ if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    if(!rentA()) return [NO,'❌ 자산 초과(총자산 3.45억·차량 4,542만)'];
+    if(inc()===1) return [OK,'✅ 신청 가능'];
+    if(inc()===2&&dual()) return [MB,'⭕ 맞벌이 120% 경계, 공고 확인'];
+    return [NO,'❌ 소득 초과']; }},
+ {cat:'임대주택', name:'LH 신혼·신생아 매입임대', basis:'신생아 가구 1순위 / 시세 30~80% / 임대 공통 자산기준',
+  apply:'https://apply.lh.or.kr/lhapply/cm/cntnts/cntntsView.do?mi=1150&cntntsId=201254', notice:NOTICE.LH_RENT,
+  judge(){ if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    if(!rentA()) return [NO,'❌ 자산 초과(총자산 3.45억·차량 4,542만)'];
+    if(inc()===1) return [OK,'✅ 신청 가능'];
+    if(inc()===2) return [MB,'⭕ Ⅱ형(맞벌이 120%) 확인'];
+    return [NO,'❌ 소득 초과']; }},
+ {cat:'임대주택', name:'LH 신혼·신생아 전세임대', basis:'원하는 전세집을 LH가 재임대 / 수도권 Ⅱ형 최대 2.4억',
+  apply:'https://apply.lh.or.kr/lhapply/cm/cntnts/cntntsView.do?mi=1240&cntntsId=1039', notice:NOTICE.LH_RENT,
+  judge(){ if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    if(!rentA()) return [NO,'❌ 자산 초과(총자산 3.45억·차량 4,542만)'];
+    if(inc()===1) return [OK,'✅ 신청 가능'];
+    if(inc()===2) return [MB,'⭕ Ⅱ형(맞벌이 120%) 확인'];
+    return [NO,'❌ 소득 초과']; }},
+ {cat:'임대주택', name:'GH 경기 임대주택', basis:'경기 31개 시군 공공임대 / 임대 공통 자산기준', rg:'경기',
+  apply:NOTICE.GH, notice:NOTICE.GH,
+  judge(){ if(!reg('경기')) return ['skip','― 지역 다름'];
+    if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    if(!rentA()) return [NO,'❌ 자산 초과(총자산 3.45억·차량 4,542만)'];
+    if(inc()===1) return [OK,'✅ 신청 가능'];
+    if(inc()===2&&dual()) return [MB,'⭕ 맞벌이 120% 경계, 공고 확인'];
+    return [NO,'❌ 소득 초과']; }},
+ {cat:'임대주택', name:'인천 천원주택(i+집드림)', basis:'월 3만원 임대료 / 맞벌이 200%까지 / 연 1,000호', rg:'인천',
+  apply:NOTICE.IC, notice:NOTICE.IC,
+  judge(){ if(!reg('인천')) return ['skip','― 지역 다름'];
+    if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    if(!rentA()) return [NO,'❌ 자산·차량 기준 초과(공고 확인)'];
+    if(dual()) return inc()<=3 ? [OK,'✅ 신청 가능(맞벌이 200%)'] : [NO,'❌ 소득 초과'];
+    if(inc()===1) return [OK,'✅ 신청 가능'];
+    if(inc()===2) return [MB,'⭕ 130% 경계, 공고 확인'];
+    return [NO,'❌ 소득 초과']; }},
+ {cat:'대출·금융', name:'신생아 특례 디딤돌(구입)', basis:'최대 5억 / 소득 1.3억(맞벌이 2억) / 순자산 5.11억 이하',
+  apply:'https://enhuf.molit.go.kr', notice:'https://enhuf.molit.go.kr',
+  judge(){ if(A.nohouse!=='예') return [NO,'❌ 무주택 필요'];
+    if(!babyOK()) return [NO,'❌ 출산요건(2년 내) 필요'];
+    if(ast()===4) return [NO,'❌ 순자산 5.11억 초과'];
+    if(inc()<=3) return [OK,'✅ 신청 가능'];
+    return dual() ? [OK,'✅ 맞벌이 2억까지 가능'] : [NO,'❌ 소득 초과']; }},
+ {cat:'대출·금융', name:'신생아 특례 버팀목(전세)', basis:'최대 2.4억 / 순자산 3.37억 이하',
+  apply:'https://enhuf.molit.go.kr', notice:'https://enhuf.molit.go.kr',
+  judge(){ if(A.nohouse!=='예') return [NO,'❌ 무주택 필요'];
+    if(!babyOK()) return [NO,'❌ 출산요건(2년 내) 필요'];
+    if(ast()>1) return [NO,'❌ 순자산 3.37억 초과'];
+    if(inc()<=3) return [OK,'✅ 신청 가능(순자산 3.37억 이하 확인)'];
+    return dual() ? [OK,'✅ 맞벌이 2억까지 가능'] : [NO,'❌ 소득 초과']; }},
+ {cat:'대출·금융', name:'신혼부부 전용 디딤돌(구입)', basis:'소득 8,500만원 / 순자산 약 4.88억 이하',
+  apply:'https://enhuf.molit.go.kr', notice:'https://enhuf.molit.go.kr',
+  judge(){ if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    if(ast()===4) return [NO,'❌ 순자산 기준 초과'];
+    if(inc()===1) return [OK,'✅ 신청 가능'];
+    if(inc()===2) return [MB,'⭕ 8,500만원 이하만 가능'];
+    return [NO,'❌ 소득 초과(신생아 특례 검토)']; }},
+ {cat:'대출·금융', name:'신혼부부 전용 버팀목(전세)', basis:'소득 7,500만원 / 순자산 3.37억 이하',
+  apply:'https://enhuf.molit.go.kr', notice:'https://enhuf.molit.go.kr',
+  judge(){ if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    if(ast()>1) return [NO,'❌ 순자산 3.37억 초과'];
+    if(inc()===1) return [OK,'✅ 신청 가능'];
+    if(inc()===2) return [MB,'⭕ 7,500만원 이하만 가능'];
+    return [NO,'❌ 소득 초과(신생아 특례 검토)']; }},
+ {cat:'대출·금융', name:'서울시 신혼부부 임차보증금 이자지원', basis:'소득 1.3억 이하 / 별도 자산기준 없음', rg:'서울',
+  apply:'https://housing.seoul.go.kr/site/main/content/sh01_0400800', notice:'https://housing.seoul.go.kr/site/main/content/sh01_0400800',
+  judge(){ if(!reg('서울')) return ['skip','― 지역 다름'];
+    if(!base()) return [NO,'❌ 무주택·혼인요건 필요'];
+    return inc()<=3 ? [OK,'✅ 신청 가능'] : [NO,'❌ 소득 초과']; }},
+ {cat:'지원금·포털', name:'경기도 전세보증 보증료 지원', basis:'보증금 3억 이하 / 최대 40만원 환급', rg:'경기',
+  apply:'https://housing.gg.go.kr', notice:'https://housing.gg.go.kr',
+  judge(){ if(!reg('경기')) return ['skip','― 지역 다름'];
+    if(A.nohouse!=='예') return [NO,'❌ 무주택 필요'];
+    if(inc()===1) return [OK,'✅ 신청 가능'];
+    if(inc()===2) return [MB,'⭕ 7,500만원 이하만 가능'];
+    return [NO,'❌ 소득 초과']; }},
+ {cat:'지원금·포털', name:'마이홈포털 자가진단', basis:'조건 입력 시 정책 자동 매칭 + 공고 알림',
+  apply:'https://www.myhome.go.kr', notice:'https://www.myhome.go.kr',
+  judge(){ return [OK,'✅ 상시 이용 가능']; }},
+];
+
+function renderQuiz() {
+  const el = document.getElementById('quiz');
+  el.innerHTML = QS.map(q => `
+    <div class="q">
+      <span class="q-label">${q.label}</span>
+      <div class="opts">${q.opts.map(o =>
+        `<button class="${A[q.id]===o?'sel':''}" onclick="pick('${q.id}',this)" data-v="${o.replace(/"/g,'&quot;')}">${o}</button>`).join('')}
+      </div>
+      <div class="q-why">${q.why}</div>
+    </div>`).join('');
+}
+function pick(id, btn) { A[id] = btn.dataset.v; renderQuiz(); renderResults(); }
+
+function renderResults() {
+  const typeSel = A.type;
+  let ok=0, mb=0;
+  const html = POL.map(p => {
+    let cls, verdict;
+    if (typeSel!=='전부' && typeSel!==p.cat) { cls='skip'; verdict='― 선택 유형 아님'; }
+    else { const [c,v] = p.judge(); cls=c; verdict=v; }
+    if (cls===OK) ok++; if (cls===MB) mb++;
+    return `<div class="pol ${cls}">
+      <div class="pol-head">
+        <div class="pol-name"><span class="cat">${p.cat}</span>${p.name}</div>
+        <div class="verdict">${verdict}</div>
+      </div>
+      <div class="basis">${p.basis}</div>
+      ${cls===OK||cls===MB ? `<div class="links">
+        <a href="${p.apply}" target="_blank">신청 바로가기</a>
+        <a href="${p.notice}" target="_blank" class="notice">📢 새 공고 확인</a>
+      </div>` : ''}
+    </div>`;
+  }).join('');
+  document.getElementById('results').innerHTML = html;
+  document.getElementById('count').textContent = `— ✅ ${ok}개 · ⭕ ${mb}개`;
+  document.getElementById('summary').innerHTML =
+    `현재 조건: <b>${A.region}</b> · ${A.type} · 무주택 ${A.nohouse} · 혼인7년 ${A.marry} · 출산 ${A.baby} · 소득 <b>${A.income}</b>${dual()?'(맞벌이)':''} · 자산 ${A.asset} → <b style="color:#2e9e5b">신청 가능 ${ok}개</b>, <b style="color:#c07f16">조건 확인 ${mb}개</b>`;
+}
+renderQuiz(); renderResults();
+</script>
+</body>
+</html>
