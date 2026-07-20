@@ -1,0 +1,45 @@
+{
+  "updated": "2026-07-20",
+  "notices": [
+    {
+      "name": "e편한세상 분당 퍼스트빌리지(성남낙생 A-1BL) 신혼희망타운 입주자모집",
+      "region": "경기 성남",
+      "type": "분양(신혼희망타운)",
+      "end": "2026-07-21",
+      "policy": "sht",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027"
+    },
+    {
+      "name": "역곡지구 하우스토리(부천역곡 A-2BL) 신혼희망타운 입주자모집",
+      "region": "경기 부천",
+      "type": "분양(신혼희망타운)",
+      "end": "2026-07-23",
+      "policy": "sht",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027"
+    },
+    {
+      "name": "고양창릉 S-4블록 공공분양주택 입주자모집 (신혼·신생아 특별공급 포함)",
+      "region": "경기 고양",
+      "type": "분양(공공분양)",
+      "end": "2026-07-29",
+      "policy": "pub",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027"
+    },
+    {
+      "name": "고양창릉 S-3블록 이익공유형(나눔형) 분양주택 입주자모집",
+      "region": "경기 고양",
+      "type": "분양(나눔형)",
+      "end": "2026-07-29",
+      "policy": "nanum",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027"
+    },
+    {
+      "name": "서울관악봉천 H-1·2·3BL 행복주택 예비입주자 모집",
+      "region": "서울 관악",
+      "type": "임대(행복주택)",
+      "end": "2026-07-28",
+      "policy": "happy",
+      "url": "https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026"
+    }
+  ]
+}
