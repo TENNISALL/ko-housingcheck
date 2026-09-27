@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신혼부부 주택정책 맞춤진단 2026 | 진단 + 오늘의 공고 한눈에</title>
+<meta name="description" content="수도권 신혼부부·신생아 가구 대상 주택정책 자동 판정 + 정책별 진행 중 공고를 매일 업데이트. 소득·자산 기준 자동 판정 + 공고 바로가기.">
+<meta property="og:title" content="신혼부부 주택정책 맞춤진단 2026">
+<meta property="og:description" content="클릭 몇 번으로 신청 가능한 청약·임대·대출 확인 + 정책별 진행 중 공고">
+<meta property="og:type" content="website">
+<style>
+  :root{
+    --bg:#f6f7fb; --card:#ffffff; --ink:#1c2333; --sub:#5b6478; --line:#e4e7f0;
+    --blue:#2f6bff; --blue-bg:#eef3ff;
+    --green:#0f9d58; --green-bg:#e8f7ef;
+    --yellow:#b8860b; --yellow-bg:#fdf6e3;
+    --red:#d93025; --red-bg:#fdecea;
+    --gray:#8a93a6; --gray-bg:#f0f2f6;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif; background:var(--bg); color:var(--ink); line-height:1.55;}
+  .wrap{max-width:860px; margin:0 auto; padding:20px 14px 60px;}
+  header h1{font-size:1.45rem; margin-bottom:4px;}
+  header p{font-size:.82rem; color:var(--sub);}
+  .updated{display:inline-block; margin-top:8px; font-size:.78rem; font-weight:700; color:var(--blue); background:var(--blue-bg); padding:4px 10px; border-radius:14px;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin:14px 0;}
+  .card h2{font-size:1.05rem; margin-bottom:10px;}
+  .muted{color:var(--sub); font-size:.8rem;}
+
+  details#inputBox summary{cursor:pointer; font-size:1rem; font-weight:800; list-style:none;}
+  details#inputBox summary::before{content:"▶ "; font-size:.8rem;}
+  details#inputBox[open] summary::before{content:"▼ ";}
+
+  .q{margin-bottom:14px;}
+  .q .label{font-size:.9rem; font-weight:700; margin-bottom:6px;}
+  .opts{display:flex; flex-wrap:wrap; gap:6px;}
+  .opt{padding:7px 12px; font-size:.86rem; border:1px solid var(--line); border-radius:20px; background:#fff; cursor:pointer;}
+  .opt.sel{background:var(--blue); color:#fff; border-color:var(--blue);}
+  .numrow{display:flex; align-items:center; gap:8px;}
+  .numrow input{width:130px; padding:8px 10px; font-size:.95rem; border:1px solid var(--line); border-radius:8px;}
+  .numrow span{font-size:.85rem; color:var(--sub);}
+
+  .group-head{font-weight:800; font-size:.95rem; margin:20px 0 8px;}
+
+  .policy{border-left:4px solid var(--gray); padding:11px 13px; margin-bottom:10px; background:#fff; border-radius:0 10px 10px 0; border-top:1px solid var(--line); border-right:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .policy.ok{border-left-color:var(--green);}
+  .policy.warn{border-left-color:#d3a10e;}
+  .policy.no{border-left-color:var(--red);}
+  .policy h4{font-size:.93rem; display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;}
+  .pill{font-size:.72rem; font-weight:700; padding:2px 9px; border-radius:12px; white-space:nowrap;}
+  .pill.ok{background:var(--green-bg); color:var(--green);}
+  .pill.warn{background:var(--yellow-bg); color:var(--yellow);}
+  .pill.no{background:var(--red-bg); color:var(--red);}
+  .why{font-size:.79rem; color:var(--sub); margin-top:4px;}
+  .policy > a{font-size:.79rem; color:var(--blue);}
+
+  /* 정책 카드 아래 진행 중 공고 */
+  .live{margin-top:9px; border-top:1px dashed var(--line); padding-top:8px;}
+  .live-title{font-size:.76rem; font-weight:800; color:var(--blue); margin-bottom:5px;}
+  .live-item{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:7px 9px; margin-bottom:5px; background:var(--blue-bg); border-radius:8px; flex-wrap:wrap;}
+  .live-item a{font-size:.82rem; font-weight:700; color:var(--ink); text-decoration:none; flex:1; min-width:200px;}
+  .live-item a:hover{text-decoration:underline;}
+  .live-meta{display:flex; gap:5px; align-items:center; flex-wrap:wrap;}
+  .bd{font-size:.7rem; font-weight:700; padding:2px 7px; border-radius:6px; white-space:nowrap;}
+  .bd.region{background:#fff; color:var(--blue); border:1px solid var(--blue);}
+  .bd.dday{background:#fff1f0; color:var(--red);}
+  .bd.dday.safe{background:var(--green-bg); color:var(--green);}
+  .bd.closed{background:var(--gray-bg); color:var(--gray);}
+
+  .note{font-size:.76rem; color:var(--sub); background:var(--card); border:1px dashed var(--line); border-radius:10px; padding:11px 13px; margin-top:18px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>🏠 신혼부부 주택정책 맞춤진단</h1>
+  <p>2026-07 기준 · 답을 클릭하면 아래 판정이 실시간으로 바뀝니다 · 최종 기준은 반드시 각 공고문 확인</p>
+  <span class="updated">📢 진행 중 공고 업데이트: <b id="noticeDate">-</b></span>
+</header>
+
+<div class="card">
+  <details id="inputBox" open>
+    <summary>내 정보 입력</summary>
+    <div id="inputPanel" style="margin-top:12px;"></div>
+  </details>
+</div>
+
+<div class="card">
+  <h2>진단 결과 <span class="muted" id="diagSummary"></span></h2>
+  <p class="muted" style="margin-bottom:6px;">각 정책 아래 파란 박스가 <b>현재 접수 중·예정인 공고</b>입니다 (매일 업데이트).</p>
+  <div id="policyList"></div>
+</div>
+
+<div class="note">
+  ⚠️ 소득 % 기준은 '전년도 도시근로자 월평균소득' 대비 비율로 매년 갱신됩니다.
+  자산은 <b>부동산(공시가)+금융+차량+기타자산 − 부채</b>로 계산하세요. 판정은 우선·잔여 순위, 지역 우선공급 등 세부 조건을 반영하지 않은 <b>추정</b>입니다.<br>
+  출처: 뉴:홈 · 마이홈포털 · LH청약플러스 · SH공사 · GH · 인천주거포털 · 서울주거포털 · 기금e든든 · 경기주거복지포털<br>
+  ※ 본 페이지는 정부·공공기관의 공식 서비스가 아닌 개인이 공개 자료를 정리한 참고용 도구입니다.
+  기준은 2026년 7월 조사 시점 기준이며, 실제 신청 자격은 반드시 해당 기관의 최신 모집공고문으로 확인하세요.
+</div>
+
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   진행 중 공고 : notices.json 을 읽어옴 (매일 갱신되는 파일)
+   json 로드 실패 시 아래 FALLBACK 사용
+════════════════════════════════════════════════ */
+const FALLBACK = {
+  updated: "2026-07-20",
+  notices: [
+    { name:"e편한세상 분당 퍼스트빌리지(성남낙생 A-1BL) 신혼희망타운 입주자모집", region:"경기 성남", type:"분양(신혼희망타운)", end:"2026-07-21", policy:"sht", url:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027" },
+    { name:"역곡지구 하우스토리(부천역곡 A-2BL) 신혼희망타운 입주자모집", region:"경기 부천", type:"분양(신혼희망타운)", end:"2026-07-23", policy:"sht", url:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027" },
+    { name:"고양창릉 S-4블록 공공분양주택 입주자모집 (신혼·신생아 특공 포함)", region:"경기 고양", type:"분양(공공분양)", end:"2026-07-29", policy:"pub", url:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027" },
+    { name:"고양창릉 S-3블록 이익공유형(나눔형) 분양주택 입주자모집", region:"경기 고양", type:"분양(나눔형)", end:"2026-07-29", policy:"nanum", url:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027" },
+    { name:"서울관악봉천 H-1·2·3BL 행복주택 예비입주자 모집", region:"서울 관악", type:"임대(행복주택)", end:"2026-07-28", policy:"happy", url:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026" }
+  ]
+};
+let NOTICE_DATA = FALLBACK;
+
+/* ── 2026년 도시근로자 가구원수별 월평균소득 100% (원) ── */
+const AVG_INCOME = {2:5866270, 3:8168429, 4:8802202, 5:9326985};
+
+/* ══════════ 질문 정의 ══════════ */
+const QUESTIONS = [
+  { key:"nohouse", label:"① 세대 전원이 무주택인가요?", opts:[["y","예 (무주택)"],["n","아니오"]] },
+  { key:"marriage", label:"② 혼인 상태는?", opts:[["in7","혼인 7년 이내"],["pre","예비 신혼부부"],["over7","혼인 7년 초과"]] },
+  { key:"baby", label:"③ 자녀는?", opts:[["newborn","2년 이내 출생아 있음(신생아)"],["kid","자녀 있음"],["none","없음(출산 계획)"]] },
+  { key:"family", label:"④ 가구원 수 (태아 포함)", opts:[["2","2인"],["3","3인"],["4","4인 이상"]] },
+  { key:"dual", label:"⑤ 맞벌이인가요?", opts:[["y","맞벌이"],["n","외벌이"]] },
+  { key:"acct", label:"⑥ 청약통장 (가입기간·납입횟수)", opts:[["ok","6개월·6회 이상"],["long","24회 이상"],["no","없음/6회 미만"]] },
+  { key:"region", label:"⑦ 현재 거주지역", opts:[["seoul","서울"],["gg","경기"],["ic","인천"],["etc","그 외"]] }
+];
+const NUMS = [
+  { key:"income", label:"⑧ 부부합산 세전 월소득 (만원)", def:750, unit:"만원/월" },
+  { key:"asset",  label:"⑨ 세대 총자산 (만원)", def:34000, unit:"만원 (부동산+금융+차량−부채)" },
+  { key:"car",    label:"⑩ 차량가액 (만원)", def:4500, unit:"만원 (없으면 0)" }
+];
+const NUM_DEF = {income:750, asset:34000, car:4500};
+
+/* ══════════ 상태 ══════════ */
+let S = {};
+try { S = JSON.parse(localStorage.getItem("hc_state")||"{}"); } catch(e){ S={}; }
+["income","asset","car"].forEach(k=>{ if(S[k]==null) S[k]={income:750,asset:34000,car:4500}[k]; });
+function save(){ localStorage.setItem("hc_state", JSON.stringify(S)); }
+
+function renderInputs(){
+  document.getElementById("inputPanel").innerHTML =
+    QUESTIONS.map(q=>`
+    <div class="q"><div class="label">${q.label}</div>
+      <div class="opts">${q.opts.map(([v,t])=>
+        `<button class="opt ${S[q.key]===v?'sel':''}" onclick="setAns('${q.key}','${v}')">${t}</button>`).join("")}
+      </div></div>`).join("")
+    + NUMS.map(n=>`
+    <div class="q"><div class="label">${n.label}</div>
+      <div class="numrow">
+        <input type="number" min="0" value="${S[n.key]??NUM_DEF[n.key]}"
+               onchange="setNum('${n.key}', this.value)">
+        <span>${n.unit}</span>
+      </div></div>`).join("");
+}
+function setAns(k,v){ S[k]=v; save(); renderAll(); }
+function setNum(k,v){ S[k]=v===""?NUM_DEF[k]:Number(v); save(); renderAll(); }
+
+/* ══════════ 공통 계산 ══════════ */
+function incomePct(){
+  if(S.income==null || !S.family) return null;
+  const base = AVG_INCOME[S.family==="4"?4:Number(S.family)];
+  return Math.round(S.income*10000 / base * 100);
+}
+const won = m => m==null ? null : m*10000;
+function filled(){ return S.nohouse && S.marriage && S.baby && S.family && S.dual && S.acct && S.region && S.income!=null; }
+
+function judge(checks){
+  const fails = checks.filter(c=>c[0]===false).map(c=>c[1]);
+  const warns = checks.filter(c=>c[0]===null).map(c=>c[1]);
+  if(fails.length) return {cls:"no", msgs:fails};
+  if(warns.length) return {cls:"warn", msgs:warns};
+  return {cls:"ok", msgs:[]};
+}
+
+/* ══════════ 정책 정의 (key = notices.json 의 policy 와 연결) ══════════ */
+function policyDefs(){
+  const pct = incomePct(), dual = S.dual==="y";
+  const nw = S.marriage==="in7"||S.marriage==="pre";
+  const yearly = S.income==null?null:S.income*12;
+  const inSeoul = S.region==="seoul", inIc = S.region==="ic";
+  const nb = S.baby==="newborn";
+  const inc = (lim,limDual)=>[pct==null?null:pct<=(dual?limDual:lim),
+      pct==null?"소득 입력 필요":`소득 ${pct}% > ${dual?limDual:lim}%`];
+  const asset = lim=>[S.asset==null?null:won(S.asset)<=lim*100000000,
+      S.asset==null?"자산 입력 필요":`총자산 ${lim}억 초과`];
+  const car = lim=>[S.car==null?null:won(S.car)<=lim*10000,
+      S.car==null?"차량 입력 필요":`차량가액 ${lim.toLocaleString()}만원 초과`];
+  const noH = [S.nohouse==="y","무주택 아님"];
+  const nwC = [nw,"혼인 7년 초과"];
+  const acct = [S.acct==="no"?false:true,"청약통장 6개월·6회 필요"];
+
+  return [
+    {g:"🏗️ 분양", key:"nanum", name:"뉴:홈 나눔형 — 신혼부부 특별공급", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027",
+     v:judge([noH,nwC,inc(130,140),asset(3.79),acct])},
+    {g:"🏗️ 분양", key:"pub", name:"뉴:홈 일반형(공공분양) — 신혼부부 특별공급", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027",
+     v:judge([noH,nwC,inc(140,160),[null,"자산기준(부동산·차량) 공고문 확인"],acct])},
+    {g:"🏗️ 분양", key:"sht", name:"신혼희망타운(공공분양)", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1027",
+     v:judge([noH,nwC,inc(130,140),asset(3.79),acct])},
+    {g:"🏘️ 임대 · 서울", key:"miri", name:"미리내집 (장기전세주택2)", link:"https://www.i-sh.co.kr/app/lay2/S48T586C6792/sublink.do",
+     v:judge([noH,nwC,[inSeoul,"서울 거주자 대상"],inc(120,180),asset(6.62),car(4542)])},
+    {g:"🏘️ 임대 · 서울", key:"lts", name:"장기전세주택(기존)", link:"https://www.i-sh.co.kr/app/lay2/S48T586C1587/sublink.do",
+     v:judge([noH,[inSeoul,"서울 거주자 대상"],inc(100,120),[null,"면적별 소득기준 상이 — 공고문 확인"]])},
+    {g:"🏘️ 임대", key:"happy", name:"행복주택 (신혼부부 계층)", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026",
+     v:judge([noH,[nw||S.baby!=="none","혼인 7년 초과·자녀 없음"],inc(100,120),asset(3.45),car(3803)])},
+    {g:"🏘️ 임대", key:"unified", name:"통합공공임대주택", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026",
+     v:judge([noH,[null,"기준 중위소득 150% 이하 — 별도 기준이라 공고문 확인"],asset(3.45)])},
+    {g:"🏘️ 임대", key:"kookmin", name:"국민임대주택", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026",
+     v:judge([noH,inc(70,90),asset(3.45),car(3803)])},
+    {g:"🏠 매입·전세임대", key:"mae1", name:"LH 신혼·신생아 매입임대 Ⅰ", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026",
+     v:judge([noH,[nw||nb,"신혼·신생아 요건 미충족"],inc(70,90)])},
+    {g:"🏠 매입·전세임대", key:"mae2", name:"LH 신혼·신생아 매입임대 Ⅱ (전세형)", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026",
+     v:judge([noH,[nw||nb,"신혼·신생아 요건 미충족"],inc(100,120)])},
+    {g:"🏠 매입·전세임대", key:"jeon1", name:"신혼·신생아 전세임대 Ⅰ", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026",
+     v:judge([noH,[nw||nb,"신혼·신생아 요건 미충족"],inc(70,90)])},
+    {g:"🏠 매입·전세임대", key:"jeon2", name:"신혼·신생아 전세임대 Ⅱ", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026",
+     v:judge([noH,[nw||nb,"신혼·신생아 요건 미충족"],inc(100,120)])},
+    {g:"🏠 매입·전세임대", key:"cheon", name:"인천 천원주택 (매입·전세임대)", link:"https://www.incheon.go.kr/housing/hou060101",
+     v:judge([noH,[inIc,"인천 거주(예정)자 대상"],[nw||nb||S.baby!=="none","신혼·신생아·유자녀 요건"],[null,"유형별 소득기준 상이 — 모집공고 확인"]])},
+    {g:"💰 대출", key:"dd1", name:"신생아 특례 디딤돌 (구입자금)", link:"https://nhuf.molit.go.kr",
+     v:judge([[nb,"2년 이내 출생아 필요"],[yearly==null?null:yearly<=25000, yearly==null?"소득 입력 필요":"부부합산 연 2.5억 초과"],[S.asset==null?null:won(S.asset)<=488000000,"순자산 약 4.88억 초과"]])},
+    {g:"💰 대출", key:"bt1", name:"신생아 특례 버팀목 (전세자금)", link:"https://nhuf.molit.go.kr",
+     v:judge([[nb,"2년 이내 출생아 필요"],[yearly==null?null:yearly<=13000, yearly==null?"소득 입력 필요":"부부합산 연 1.3억 초과(완화 여부 확인)"],[S.asset==null?null:won(S.asset)<=337000000,"자산 약 3.37억 초과"]])},
+    {g:"💰 대출", key:"bt2", name:"신혼부부 전용 버팀목 전세대출", link:"https://nhuf.molit.go.kr",
+     v:judge([nwC,[yearly==null?null:yearly<=7500, yearly==null?"소득 입력 필요":"부부합산 연 7,500만 초과"],[S.asset==null?null:won(S.asset)<=337000000,"자산 약 3.37억 초과"]])}
+  ];
+}
+
+/* ══════════ 정책 카드 + 그 아래 진행 중 공고 렌더 ══════════ */
+function liveHtml(key){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const items = (NOTICE_DATA.notices||[]).filter(n=>n.policy===key);
+  if(!items.length) return "";
+  const rows = items.map(n=>{
+    const end = new Date(n.end+"T23:59:59");
+    const dd = Math.ceil((end-today)/86400000);
+    const closed = end < today;
+    const badge = closed
+      ? `<span class="bd closed">마감</span>`
+      : `<span class="bd dday ${dd>3?'safe':''}">${dd<=0?'오늘 마감!':'D-'+dd}</span>`;
+    return `<div class="live-item">
+      <a href="${n.url}" target="_blank" rel="noopener">${n.name}</a>
+      <span class="live-meta"><span class="bd region">${n.region}</span>${badge}<span class="bd closed" style="background:#fff;color:var(--sub);">~${n.end.slice(5).replace('-','/')}</span></span>
+    </div>`;
+  }).join("");
+  return `<div class="live"><div class="live-title">📢 진행 중 공고</div>${rows}</div>`;
+}
+
+function renderPolicies(){
+  const el = document.getElementById("policyList");
+  const ready = filled();
+  const defs = policyDefs();
+  if(ready){
+    const okN = defs.filter(d=>d.v.cls==="ok").length;
+    const warnN = defs.filter(d=>d.v.cls==="warn").length;
+    document.getElementById("diagSummary").textContent = `— 가능성 높음 ${okN}건 · 확인 필요 ${warnN}건`;
+  } else {
+    document.getElementById("diagSummary").textContent = "— 내 정보를 모두 입력하면 판정이 표시됩니다";
+  }
+  let lastG = "";
+  el.innerHTML = defs.map(d=>{
+    const head = d.g!==lastG ? `<p class="group-head">${d.g}</p>` : "";
+    lastG = d.g;
+    const pill = ready
+      ? `<span class="pill ${d.v.cls}">${d.v.cls==="ok"?"✅ 가능성 높음":d.v.cls==="warn"?"⚠️ 확인 필요":"❌ 기준 초과"}</span>`
+      : `<span class="pill warn">ℹ️ 정보 입력 대기</span>`;
+    const why = ready && d.v.msgs.length ? `<div class="why">· ${d.v.msgs.join(" · ")}</div>` : "";
+    return head + `<div class="policy ${ready?d.v.cls:''}">
+      <h4>${d.name}${pill}</h4>
+      ${why}
+      <a href="${d.link}" target="_blank" rel="noopener">바로가기 →</a>
+      ${liveHtml(d.key)}
+    </div>`;
+  }).join("");
+}
+
+function renderAll(){ renderInputs(); renderPolicies(); }
+
+/* ══════════ notices.json 로드 후 시작 ══════════ */
+fetch("notices.json?v="+Date.now())
+  .then(r=>r.ok?r.json():Promise.reject())
+  .then(j=>{ NOTICE_DATA=j; })
+  .catch(()=>{ NOTICE_DATA=FALLBACK; })
+  .finally(()=>{
+    document.getElementById("noticeDate").textContent = NOTICE_DATA.updated||"-";
+    renderAll();
+    if(filled()) document.getElementById("inputBox").open = false;
+  });
+</script>
+</body>
+</html>
