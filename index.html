@@ -209,6 +209,8 @@ function policyDefs(){
      v:judge([noH,nwC,[inSeoul,"서울 거주자 대상"],inc(120,180),asset(6.62),car(4542)])},
     {g:"🏘️ 임대 · 서울", key:"lts", name:"장기전세주택(기존)", link:"https://www.i-sh.co.kr/app/lay2/S48T586C1587/sublink.do",
      v:judge([noH,[inSeoul,"서울 거주자 대상"],inc(100,120),[null,"면적별 소득기준 상이 — 공고문 확인"]])},
+    {g:"🏘️ 임대 · 서울", key:"shmae", name:"SH 장기미임대 매입임대주택", link:"https://www.i-sh.co.kr/app/lay2/program/S48T1581C563/www/brd/m_247/list.do?multi_itm_seq=2",
+     v:judge([noH,[inSeoul,"서울 주민등록자 대상"],[null,"순위별 소득·자산 기준 — 공고문 확인"]])},
     {g:"🏘️ 임대", key:"happy", name:"행복주택 (신혼부부 계층)", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026",
      v:judge([noH,[nw||S.baby!=="none","혼인 7년 초과·자녀 없음"],inc(100,120),asset(3.45),car(3803)])},
     {g:"🏘️ 임대", key:"unified", name:"통합공공임대주택", link:"https://apply.lh.or.kr/lhapply/apply/wt/wrtanc/selectWrtancList.do?mi=1026",
